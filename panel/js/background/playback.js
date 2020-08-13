@@ -730,6 +730,16 @@ function switchPS() {
         playDisable(false);
         document.getElementById("playback").style.display = "";
         document.getElementById("stop").style.display = "none";
+
+        $.ajax({
+            url: testOpsUrls.getFirstProject,
+            type: 'GET',
+        }).then(projects => {
+            if (projects.length == 1) {
+                var project = projects[0];
+                uploadTestReportsToTestOps(null, project.id);
+            }
+        })
     }
 }
 
@@ -1225,6 +1235,8 @@ function doCommand() {
                     captureWindowId: extCommand.getContentWindowId()
                 }).then(function(captureResponse) {
                     addToScreenshot(captureResponse.image, 'fail-' + sideex_testCase[currentTestCaseId].title + '-' + originalCurrentPlayingCommandIndex);
+                }).catch(function(e) {
+                    console.log(e);
                 });
             } else {
                 setColor(currentPlayingCommandIndex + 1, "success");

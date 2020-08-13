@@ -48,7 +48,7 @@
     <script type="text/javascript" src="js/lib/jquery.tablesorter.min.js"></script>
     <script type="text/javascript" src="js/lib/jquery.equalHeight.js"></script>
     <script type="text/javascript" src="js/lib/jquery.tabletab.js"></script>
-    <script type="text/javascript" src="js/lib/colResizable-1.5.min.js"></script>
+    <script type="text/javascript" src="js/lib/colResizable-1.6.min.js"></script>
     <script type="text/javascript" src="js/UI/panelSetting.js"></script>
     <script type="text/javascript" src="js/UI/sortable-ui.js"></script>
     <script type="text/javascript" src="js/background/doc.js"></script>
@@ -109,20 +109,22 @@
             <button id="delete-testCase" style="display: none">-Case</button>
             <a download="info.html" id="downloadlink" style="display: none">Download</a>
             
-            <a name="" target="_blank" id="logo_kr_icon" class="sub_btn"><img src="../katalon/images/branding/branding_128.png" alt="Katalon Recorder" /></button>
+            <a name="" target="_blank" id="logo_kr_icon" class="sub_btn"><img src="../katalon/images/branding/branding_128.png" alt="Katalon Recorder" /></a>
             <a name="" target="_blank" id="logo_kr_full" class="sub_btn">
                 <img class="dark" src="../katalon/images/branding/Katalon-Recorder-full-color-large.png" alt="Katalon Recorder" />
                 <img class="light" src="../katalon/images/branding/Katalon-Recorder-full-color-large-w.png" alt="Katalon Recorder" />
             </a>
-            
+
             <button id="new" class="sub_btn"><i class="fa"></i> New</button>
-            <button id="record" class="sub_btn" style="width: 15%"><i class="fa fa-video-camera" aria-hidden="true"></i> Record</button>
+            <button id="record" class="sub_btn" style="width: 15%"><i class="fa fa-video-camera" aria-hidden="true"></i> Rec.</button>
             <button id="playback" class="sub_btn" style="width: 20%" disabled><i class="fa fa-play" aria-hidden="true"></i> Play</button>
             <button id="stop" class="sub_btn" style="display: none; width: 20%"><i class="fa fa-stop" aria-hidden="true"></i> Stop</button>
-            <button id="playSuite" class="sub_btn" style="width: 21%" disabled><i class="fa fa-cube" aria-hidden="true"></i> Play Suite</button>
-            <button id="playSuites" class="sub_btn" style="width: 21%" disabled><i class="fa fa-cubes" aria-hidden="true"></i> Play All</button>
+            <button id="playSuite" class="sub_btn" style="width: 21%" disabled><i class="fa fa-cube" aria-hidden="true"></i> P. Suite</button>
+            <button id="playSuites" class="sub_btn" style="width: 21%" disabled><i class="fa fa-cubes" aria-hidden="true"></i> P. All</button>
             <button id="pause" class="sub_btn btn_pr" style="width: 15.5%" disabled><i class="fa fa-pause-circle" aria-hidden="true"></i> Pause</button>
             <button id="resume" class="sub_btn btn_pr" style="display: none; width: 15.5%"><i class="fa fa-reply" aria-hidden="true"></i> Resume</button>
+            <button id="ka-upload" class="sub_btn" style="width: 20%" title="Upload logs to Katalon TestOps to keep track of execution history, access to automation dashboard and reports.">
+                <img src="../katalon/images/branding/ka_32x24px.png" alt="Katalon TestOps"/>Report</button>
             <button id="export" class="sub_btn" style="width: 15%"><i class="fa"></i> Export</button>
             <div id="speed-wrapper" style="position: relative; flex-grow: 0; flex-shrink: 0;">
                 <button id="speed" class="sub_btn"><i class="fa"></i>&nbsp;</button>
@@ -132,7 +134,6 @@
             <a id="help" class="sub_btn"><i class="fa"></i></a>
             <a id="github" class="sub_btn" target="_blank" href="https://github.com/katalon-studio/katalon-recorder"><i class="fa fa-github"></i></a>
             <!--a id="adjust" class="sub_btn"><i class="fa fa-adjust" aria-hidden="true"></i></a-->
-            <a href="https://www.katalon.com/" target="_blank" id="katalon-logo" class="sub_btn" title="Visit katalon.com"><img src="../katalon/images/SVG/katalon-logo-vector.svg" alt="Katalon Logo Icon" /></a>
             <!-- TODO: Add a stop button -->
         </div>
         <!-- load Suite of older version -->
@@ -140,8 +141,8 @@
             Please open test case!
             <input id="testSuiteOpener" type="file" multiple accept="text/*">
         </div>-->
-        <div class="module_all">
-            <article class="width_quarter module_right">
+        <div id="main-section">
+            <article id="tree-section">
                 <div id="slider" style="display:none"></div>
                 <div id="middle-container" class="module">
                     <header>
@@ -173,7 +174,7 @@
                     </div>
                 </article>
             </article>
-            <article class="module width_3_quarter">
+            <article id="steps-section" class="module">
                 <div id="command-container" class="tab_content case_hight">
                     <div class="smallSection">
                         <table id="command-grid" class="tablesorter" cellspacing="0">
@@ -291,7 +292,9 @@
             </article>
             <!-- end of content manager article -->
             <div class="clear"></div>
-            <article class="module width_full">
+        </div>
+        <div id="log-section">
+            <article class="module">
                 <header class="tabs_involved">
                     <ul class="tabs2">
                     <li id="history-log"><a>Log</a></li>
@@ -302,11 +305,11 @@
                     <li id="reference-log"><a>Reference</a></li>
                     </ul>
                     <ul class="tabs">
-                        <li id="ka-upload"><a title="Upload logs to Katalon TestOps to keep track of execution history, access to automation dashboard and reports."><img src="../katalon/images/branding/ka_32x24px.png" alt="Katalon TestOps"/> Katalon TestOps<sup>beta</sup></a></li>
+                        <li id="ka-open"><a><img src="../katalon/images/branding/ka_32x24px.png" alt="Katalon TestOps"/>TestOps</a></li>
                         <li id="save-log"><a title="Save logs as...">Save</a></li>
                         <li id="clear-log"><a title="Clear logs">Clear</a></li>
-                        <li id="data-files-add-csv"><a title="Add CSV File">Add CSV File</a></li>
-                        <li id="data-files-add-json"><a title="Add JSON File">Add JSON File</a></li>
+                        <li id="data-files-add-csv"><a title="Add CSV File">Add CSV</a></li>
+                        <li id="data-files-add-json"><a title="Add JSON File">Add JSON</a></li>
                         <li id="extension-add"><a title="Add JS File">Add Extension Script</a></li>
                         <li id="collapse-console"><a href="javascript:void(0);" title="Toggle panel" id="show-hide-bottom-panel">
                             <img src="/katalon/images/SVG/ic_keyboard_arrow_down_black_18px.svg" data-show="/katalon/images/SVG/ic_keyboard_arrow_up_black_18px.svg" data-hide="/katalon/images/SVG/ic_keyboard_arrow_down_black_18px.svg" alt="Show/Hide">
@@ -393,6 +396,14 @@
             </article>
             <!-- end of styles article -->
         </div>
+        <div id="backup-section">
+            <input id="backup-restore-hidden" type="file" accept=".json" style="display: none" />
+            <p>
+                <span id="backup-status"></span>
+                <a href="#" id="backup-refresh-btn" class="katalon-link" style="display: none">Refresh</a>
+                <a href="#" id="backup-restore-btn" class="katalon-link" style="display: none">Restore</a>
+            </p>
+        </div>
         <!--<div class="spacer"></div>-->
         <div id="generateToScriptsDialog" title="Export Test Case as Script" style="display: none">
             <div class="" style="height: 30px; line-height: 30px; margin-bottom: 12px;"><label for="select-script-language-id">Format </label>
@@ -402,6 +413,7 @@
                     <option value="java-wd-testng">Java (WebDriver + TestNG)</option>
                     <option value="java-wd-junit">Java (WebDriver + JUnit)</option>
                     <option value="java-rc-junit">Java (WebDriver-backed Remote Control + JUnit)</option>
+                    <option value="new-formatter-dynatrace">JSON (Dynatrace Synthetics)</option>
                     <option value="katalon" selected>Katalon Studio</option>
                     <option value="new-formatter-nrsynthetics">Node (New Relic Synthetics)</option>
                     <option value="new-formatter-protractorts">Protractor (Typescript)</option>
@@ -409,6 +421,7 @@
                     <option value="python-appdynamics">Python (AppDynamics)</option>
                     <option value="robot">Robot Framework</option>
                     <option value="ruby-wd-rspec">Ruby (WebDriver + RSpec)</option>
+                    <option value="new-formatter-webdriver">WebDriver.io</option>
                     <option value="xml">XML</option>
                     <!-- must start with new-formatter- -->
                     <option value="new-formatter-sample">Sample for new formatters</option>
@@ -470,5 +483,7 @@
     <script type="text/javascript" src="js/katalon/newformatters/sample.js"></script>
     <script type="text/javascript" src="js/katalon/newformatters/nrsynthetics.js"></script>
     <script type="text/javascript" src="js/katalon/newformatters/protractorts.js"></script>
+    <script type="text/javascript" src="js/katalon/newformatters/dynatrace.js"></script>
+    <script type="text/javascript" src="js/katalon/newformatters/webdriver.js"></script>
 </body>
 </html>
